@@ -3,7 +3,7 @@ import type { Price } from '~/api/common/price'
 import type { PriceProvider } from '~/api/common/priceProvider'
 
 export default class AutobotTFPriceProvider implements PriceProvider {
-  private host = new URL('https://autobot.tf/json/')
+  private host = new URL('https://autobot.tf/')
   private schemaHost = new URL('https://schema.autobot.tf/')
 
   /**
@@ -28,20 +28,24 @@ export default class AutobotTFPriceProvider implements PriceProvider {
 
   async getAllPrices(): Promise<Price[]> {
     const rawItems = (await AutobotTFPriceProvider.prehandleError(
-      fetch(new URL('/pricelist-array', this.host))
+      fetch(new URL('/json/pricelist-array', this.host), {
+        headers: {}
+       })
     )) as { items: Price[] }
     return rawItems.items
   }
 
   async getPriceBySKU(sku: string): Promise<Price> {
     return AutobotTFPriceProvider.prehandleError(
-      fetch(new URL(`/items/${sku}`, this.host))
+      fetch(new URL(`/json/items/${sku}`, this.host), { mode: 'no-cors' })
     )
   }
 
   async getPriceByName(itemName: string): Promise<Price> {
     const { sku } = (await AutobotTFPriceProvider.prehandleError(
-      fetch(new URL(`/items/${itemName}`, this.schemaHost))
+      fetch(new URL(`/json/items/${itemName}`, this.schemaHost), {
+        mode: 'no-cors',
+      })
     )) as { sku: string }
     return this.getPriceBySKU(sku)
   }
