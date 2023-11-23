@@ -5,7 +5,6 @@ import React from '@vitejs/plugin-react'
 import type { UserConfig } from 'vite'
 import { defineConfig } from 'vite'
 import Icons from 'unplugin-icons/vite'
-import AutoImport from 'unplugin-auto-import/vite'
 import UnoCSS from 'unocss/vite'
 import { isDev, port, r } from './scripts/utils'
 import packageJson from './package.json'
@@ -24,20 +23,7 @@ export const sharedConfig: UserConfig = {
   },
   plugins: [
     React(),
-    AutoImport({
-      imports: [
-        'vue',
-        {
-          'webextension-polyfill': [['*', 'browser']],
-        },
-      ],
-      dts: r('src/auto-imports.d.ts'),
-    }),
-
-    // https://github.com/antfu/unplugin-icons
     Icons(),
-
-    // https://github.com/unocss/unocss
     UnoCSS(),
 
     {

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { renderToString } from 'react-dom/server'
-import { log } from 'scripts/utils'
 import PriceTag from '~/features/PriceTag'
 import usePricings from '~/features/PriceTag/hooks/stores/usePricings'
 
@@ -42,8 +41,6 @@ const PricingsInjector = ({ target }: { target: Element }) => {
     fetchPrices()
   }, [])
   useEffect(() => {
-    log('price', JSON.stringify(prices, null, 2))
-    log('fetching state', state)
     elements.forEach((el) => {
       el.remove()
     })
