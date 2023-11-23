@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { Accordion, AccordionItem } from '@radix-ui/react-accordion'
 import ActiveItemContent from '.'
 
 const meta: Meta<typeof ActiveItemContent> = {
@@ -14,6 +15,7 @@ type Story = StoryObj<typeof ActiveItemContent>
  * See https://storybook.js.org/docs/react/api/csf
  * to learn how to use render functions.
  */
+
 export const Default: Story = {
   args: {
     baseName: 'Golden Frying Pan',
@@ -30,5 +32,11 @@ export const Default: Story = {
       time: 1700736065916,
     },
   },
-  // render: () => <ActiveItemContent primary label="Button" />,
+  render: (args) => (
+    <Accordion type="single" defaultValue={args.baseName}>
+      <AccordionItem value={args.baseName}>
+        <ActiveItemContent {...args} />
+      </AccordionItem>
+    </Accordion>
+  ),
 }

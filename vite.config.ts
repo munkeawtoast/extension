@@ -4,10 +4,8 @@ import { dirname, relative } from 'node:path'
 import React from '@vitejs/plugin-react'
 import type { UserConfig } from 'vite'
 import { defineConfig } from 'vite'
-import Icons from 'unplugin-icons/vite'
-import UnoCSS from 'unocss/vite'
-import { isDev, port, r } from './scripts/utils'
 import packageJson from './package.json'
+import { isDev, port, r } from './scripts/utils'
 
 export const sharedConfig: UserConfig = {
   root: r('src'),
@@ -23,9 +21,6 @@ export const sharedConfig: UserConfig = {
   },
   plugins: [
     React(),
-    Icons(),
-    UnoCSS(),
-
     {
       name: 'assets-rewrite',
       enforce: 'post',

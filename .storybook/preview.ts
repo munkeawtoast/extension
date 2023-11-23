@@ -1,8 +1,5 @@
 import type { Preview } from '@storybook/react'
-import '@unocss/reset/tailwind.css'
-import 'uno.css'
-import '../src/styles/main.css'
-
+import '../src/assets/styles.css'
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
