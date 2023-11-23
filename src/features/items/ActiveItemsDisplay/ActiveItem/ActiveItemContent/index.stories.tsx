@@ -5,6 +5,13 @@ import ActiveItemContent from '.'
 
 const meta: Meta<typeof ActiveItemContent> = {
   component: ActiveItemContent,
+  render: (args) => (
+    <Accordion type="single" defaultValue={args.baseName}>
+      <AccordionItem value={args.baseName}>
+        <ActiveItemContent {...args} />
+      </AccordionItem>
+    </Accordion>
+  ),
 }
 
 export default meta
@@ -32,11 +39,4 @@ export const Default: Story = {
       time: 1700736065916,
     },
   },
-  render: (args) => (
-    <Accordion type="single" defaultValue={args.baseName}>
-      <AccordionItem value={args.baseName}>
-        <ActiveItemContent {...args} />
-      </AccordionItem>
-    </Accordion>
-  ),
 }

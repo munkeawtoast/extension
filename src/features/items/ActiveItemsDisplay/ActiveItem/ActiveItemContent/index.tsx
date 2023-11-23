@@ -1,8 +1,9 @@
+import { Icon } from '@iconify/react'
 import { AccordionHeader, AccordionTrigger } from '@radix-ui/react-accordion'
 import sku from '@tf2autobot/tf2-sku'
 import classNames from 'classnames'
 import { forwardRef } from 'react'
-import { getItemClassnameColor } from '~/features/items/util/items'
+import { getClassnameColorByQuality } from '~/features/items/util/items'
 import type { Item } from '~/model/item/item'
 
 export type ActiveItemContentProps = {
@@ -15,36 +16,44 @@ export type ActiveItemContentProps = {
 const ActiveItemContent = forwardRef<HTMLButtonElement, ActiveItemContentProps>(
   ({ baseName, image, item }, forwardedRef) => {
     return (
-      <AccordionHeader className="font-sans flex bg-[#555] py-2 pl-4 max-w-100">
-        <AccordionTrigger className="flex " ref={forwardedRef}>
+      <AccordionHeader className="font-sans flex bg-[#555] py-2 pl-4 max-w-[25rem]">
+        <AccordionTrigger
+          className="flex flex-1 justify-start"
+          ref={forwardedRef}
+        >
           <div className="bg-black rounded">
             <div
               style={{
                 backgroundImage: `url(${image})`,
               }}
               className={classNames(
-                'w-26 h-26 border-5 bg-cover bg-center rounded',
-                getItemClassnameColor(
+                'w-24 h-24 border-4 bg-cover bg-center rounded',
+                getClassnameColorByQuality(
                   sku.fromString(item!.sku).quality,
                   null,
-                  true
+                  {
+                    background: true,
+                  }
                 )
               )}
             />
           </div>
-          <div className="px-4 py-2 flex-1">
-            <div className="text-white">{baseName}</div>
+          <div className="pl-4 pt-2 flex-1">
+            <div className="text-left text-white">{baseName}</div>
             {item?.buy && (
               <div className="flex gap-3 items-center">
-                <div className="i-material-symbols:key text-2xl bg-[#D6A62C]" />
-                <div className="">{item.buy.keys}</div>
+                <Icon
+                  icon="material-symbols:key"
+                  className=" text-2xl text-[#D6A62C]"
+                />
+                <div className="text-gray-950">{item.buy.keys}</div>
               </div>
             )}
           </div>
-          <div className="flex items-center justify-center mr-2">
-            <button className="p-2">
-              <div className="i-bi:chevron-down text-3xl bg-white" />
-            </button>
+          <div className="flex h-full items-center justify-center mr-2">
+            <div className="p-2">
+              <Icon icon="ph:caret-down" className="text-3xl text-white" />
+            </div>
           </div>
         </AccordionTrigger>
       </AccordionHeader>

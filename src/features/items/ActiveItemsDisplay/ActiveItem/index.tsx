@@ -1,7 +1,10 @@
+// TODO: Implement this component
 const ActiveItem = () => {
   return (
     <div className="group" data-state="open">
-      <button className="bg-red  group-[data-state=open]:bg-blue">test</button>
+      <button className=" bg-red-300 group-[data-state=open]:bg-blue-300">
+        test
+      </button>
     </div>
   )
 }
