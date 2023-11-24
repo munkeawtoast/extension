@@ -1,20 +1,28 @@
 import classNames from 'classnames'
+import type { FC } from 'react'
 import { forwardRef } from 'react'
 import { getClassnameColorByQuality } from '~/features/items/util/items'
-import type { Size } from '~/features/items/util/ui/base'
-import { getFontSize } from '~/features/items/util/ui/font'
+import type { TwSize } from '~/features/items/util/ui/base'
+import { getTwFontSize } from '~/features/items/util/ui/font'
 import type { Qualities } from '~/model/item/item'
 
 type StyleQualityColoredActionRowLikeButtonProps = {
   title: string
   quality: Qualities
   decorationQuality?: any
-  size?: Size
+  size?: TwSize
   variant?: 'filled' | 'transparent'
   containerClassName?: string
-  children: React.ReactNode
+  children?: ChildrenPropInjectedProps
+  onClick?: () => void
+  isOn?: boolean
 }
 
+export type ChildrenPropInjectedProps = FC<{
+  isOn: boolean
+}>
+
+// TODO ส่ง ref แต่ ก็ต้องมี isOnด้วย ทำไงนิ
 const StyleQualityColoredActionRowLikeButton = forwardRef<
   HTMLButtonElement,
   StyleQualityColoredActionRowLikeButtonProps
@@ -53,12 +61,12 @@ const StyleQualityColoredActionRowLikeButton = forwardRef<
         ref={forwardedRef}
       >
         <div>
-          <span className={getFontSize(fontSize)}>{title}</span>
+          <span className={getTwFontSize(fontSize)}>{title}</span>
         </div>
         <div
           className={classNames('flex-1 flex items-center', containerClassName)}
         >
-          {children}
+          {children ? children({ isOn: false }) : null}
         </div>
       </button>
     )

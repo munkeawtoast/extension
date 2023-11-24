@@ -32,11 +32,26 @@ export const OptionHeader: Story = {
     size: '3xl',
     title: 'Quality',
     variant: 'transparent',
-    children: <Icon icon="ph:caret-down" className="a" />,
+    children: ({ isOn }) => <Icon icon="ph:caret-down" className="text-3xl" />,
   },
 }
 
 export const Quality: Story = {
+  args: {
+    quality: 11,
+    title: 'Strange',
+    variant: 'filled',
+    children: ({ isOn }) => (
+      <>
+        <div className="flex-1" />
+        <Icon icon="ph:caret-down" className="text-md" />
+      </>
+    ),
+  },
+  // render: () => <ActiveItemContent primary label="Button" />,
+}
+
+export const Item: Story = {
   args: {
     quality: 11,
     title: 'Strange Golden Flying Pan',

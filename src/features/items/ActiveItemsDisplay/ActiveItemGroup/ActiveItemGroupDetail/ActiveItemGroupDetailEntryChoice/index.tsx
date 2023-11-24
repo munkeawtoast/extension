@@ -8,7 +8,7 @@ export type ActiveItemDetailEntryChoiceProps = {
 }
 
 // TODO: Implement this component
-const ActiveItemDetailEntryChoice = forwardRef<
+const ActiveItemGroupDetailEntryChoice = forwardRef<
   HTMLButtonElement,
   ActiveItemDetailEntryChoiceProps
 >(({ item }, forwardedRef) => {
@@ -21,4 +21,4 @@ const ActiveItemDetailEntryChoice = forwardRef<
   )
 })
 
-export default ActiveItemDetailEntryChoice
+export default ActiveItemGroupDetailEntryChoice

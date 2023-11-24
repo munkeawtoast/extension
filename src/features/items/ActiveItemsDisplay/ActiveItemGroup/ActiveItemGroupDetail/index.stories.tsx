@@ -1,21 +1,21 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { Accordion, AccordionItem } from '@radix-ui/react-accordion'
-import ActiveItemDetail from '.'
+import ActiveItemGroupDetail from '.'
 
-const meta: Meta<typeof ActiveItemDetail> = {
-  component: ActiveItemDetail,
+const meta: Meta<typeof ActiveItemGroupDetail> = {
+  component: ActiveItemGroupDetail,
   render: (args) => (
     <Accordion type="single" defaultValue={args.baseName}>
       <AccordionItem value={args.baseName}>
-        <ActiveItemDetail {...args} />
+        <ActiveItemGroupDetail {...args} />
       </AccordionItem>
     </Accordion>
   ),
 }
 
 export default meta
-type Story = StoryObj<typeof ActiveItemDetail>
+type Story = StoryObj<typeof ActiveItemGroupDetail>
 
 /*
  *👇 Render functions are a framework specific feature to allow you control on how the component renders.

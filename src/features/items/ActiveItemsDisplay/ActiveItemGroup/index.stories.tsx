@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import ActiveItem from '.'
+import ActiveItemGroup from './index'
 
-const meta: Meta<typeof ActiveItem> = {
-  component: ActiveItem,
+const meta: Meta<typeof ActiveItemGroup> = {
+  component: ActiveItemGroup,
 }
 
 export default meta
-type Story = StoryObj<typeof ActiveItem>
+type Story = StoryObj<typeof ActiveItemGroup>
 
 /*
  *👇 Render functions are a framework specific feature to allow you control on how the component renders.

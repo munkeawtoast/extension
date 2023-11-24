@@ -1,8 +1,8 @@
-import type { Size } from './base'
+import type { TwSize } from './base'
 
-export type FontSize = Size
+export type FontSize = TwSize
 
-const fontSizeStyleMap: Record<Size, string> = {
+const fontSizeStyleMap: Record<TwSize, string> = {
   xs: 'text-xs',
   sm: 'text-sm',
   md: 'text-md',
@@ -12,6 +12,6 @@ const fontSizeStyleMap: Record<Size, string> = {
   '3xl': 'text-3xl',
 }
 
-export function getFontSize(size?: Size) {
+export function getTwFontSize(size?: TwSize) {
   return size ? fontSizeStyleMap[size] : fontSizeStyleMap.md
 }
