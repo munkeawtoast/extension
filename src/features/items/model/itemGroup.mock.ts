@@ -1,3 +1,7 @@
+import type { RequestHandler } from 'msw'
+import { HttpResponse, http } from 'msw'
+import type { ItemServiceGroupedPricingsDTO } from '../api'
+import { itemServiceUrl } from '../api'
 import type { ItemGroup } from './ItemGroup'
 
 export const mockItemGroups: Array<ItemGroup> = [
@@ -642,4 +646,14 @@ export const mockItemGroups: Array<ItemGroup> = [
       '15': [],
     },
   },
+]
+
+export const mockItemGroupsRequestInterceptors: Array<RequestHandler> = [
+  http.get(`${itemServiceUrl}/pricings/group`, () => {
+    return HttpResponse.json<ItemServiceGroupedPricingsDTO>({
+      pricings: mockItemGroups,
+      success: true,
+      timestamp: 1700820361271,
+    })
+  }),
 ]
