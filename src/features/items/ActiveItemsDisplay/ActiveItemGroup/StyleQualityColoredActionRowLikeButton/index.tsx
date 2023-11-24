@@ -1,10 +1,10 @@
 import classNames from 'classnames'
 import type { FC } from 'react'
 import { forwardRef } from 'react'
-import { getClassnameColorByQuality } from '~/features/items/util/items'
-import type { TwSize } from '~/features/items/util/ui/base'
-import { getTwFontSize } from '~/features/items/util/ui/font'
-import type { Qualities } from '~/model/item/item'
+import type { Qualities } from '~/features/items/model/item'
+import { getClassnameColorByQuality } from '~/features/items/util'
+import type { TwSize } from '~/features/util/ui/base'
+import { getTwFontSize } from '~/features/util/ui/font'
 
 type StyleQualityColoredActionRowLikeButtonProps = {
   title: string

@@ -3,8 +3,8 @@ import { AccordionHeader, AccordionTrigger } from '@radix-ui/react-accordion'
 import sku from '@tf2autobot/tf2-sku'
 import classNames from 'classnames'
 import { forwardRef } from 'react'
-import { getClassnameColorByQuality } from '~/features/items/util/items'
-import type { Item } from '~/model/item/item'
+import type { Item } from '~/features/items/model/item'
+import { getClassnameColorByQuality } from '~/features/items/util'
 
 export type ActiveItemGroupContentProps = {
   image: string

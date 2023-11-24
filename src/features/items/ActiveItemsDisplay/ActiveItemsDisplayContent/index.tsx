@@ -1,7 +1,7 @@
 import { Accordion } from '@radix-ui/react-accordion'
 import type { FC } from 'react'
 import ActiveItemGroup from '../ActiveItemGroup'
-import type { ItemGroup } from '~/model/item/ItemGroup'
+import type { ItemGroup } from '~/features/items/model/ItemGroup'
 
 export type ActiveItemsDisplayContentProps = {
   itemGroups: Array<ItemGroup>

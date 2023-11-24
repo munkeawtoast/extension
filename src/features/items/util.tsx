@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import type { Qualities } from '~/model/item/item'
+import type { Qualities } from '~/features/items/model/item'
 
 export function getClassnameColorByQuality(
   quality: number,

@@ -4,8 +4,8 @@ import type { FC } from 'react'
 import { useState } from 'react'
 import type { ActiveItemGroupContentProps } from './ActiveItemGroupContent'
 import ActiveItemGroupContent from './ActiveItemGroupContent'
-import type { ItemGroup } from '~/model/item/ItemGroup'
-import type { Item } from '~/model/item/item'
+import type { ItemGroup } from '~/features/items/model/ItemGroup'
+import type { Item } from '~/features/items/model/item'
 
 export type ActiveItemGroupProps = {
   itemGroup: ItemGroup

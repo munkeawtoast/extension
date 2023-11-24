@@ -1,7 +1,7 @@
 import { ToggleGroupItem } from '@radix-ui/react-toggle-group'
 import classNames from 'classnames'
 import { forwardRef } from 'react'
-import type { Item } from '~/model/item/item'
+import type { Item } from '~/features/items/model/item'
 
 export type ActiveItemDetailEntryChoiceProps = {
   item: Item

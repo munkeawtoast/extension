@@ -5,7 +5,7 @@ import ActiveItemsDisplayContent from './ActiveItemsDisplayContent'
 import ActiveItemsDisplayFooter from './ActiveItemsDisplayFooter'
 import ActiveItemsDisplayHeader from './ActiveItemsDisplayHeader'
 import ActiveItemsTriggerButton from './ActiveItemsTriggerButton'
-import type { ItemGroup } from '~/model/item/ItemGroup'
+import type { ItemGroup } from '~/features/items/model/ItemGroup'
 
 export type ActiveItemsDisplayProps = {
   itemGroups: Array<ItemGroup>
