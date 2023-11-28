@@ -7,6 +7,23 @@ export default {
         sans: ['TF2 Build', 'sans-serif'],
       },
       colors: {
+        card: {
+          header: '#41454D',
+          body: '#555',
+          footer: '#272727',
+        },
+        currency: {
+          key: '#D6A62C',
+          metal: '#C6C6C6',
+        },
+        component: {
+          border: '#5F5F5F',
+          content: '#2A2A2A',
+        },
+        item_group: {
+          header: '#111',
+          body: '#323232',
+        },
         quality: {
           normal: '#B2B2B2',
           unique: '#FFD700',

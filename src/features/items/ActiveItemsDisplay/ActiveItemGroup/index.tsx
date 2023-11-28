@@ -1,21 +1,49 @@
 import { AccordionItem } from '@radix-ui/react-accordion'
 
 import type { FC } from 'react'
-import { useState } from 'react'
+import { ToggleGroup } from '@radix-ui/react-toggle-group'
+import type { ActiveItemsRecord } from '..'
 import type { ActiveItemGroupContentProps } from './ActiveItemGroupContent'
 import ActiveItemGroupContent from './ActiveItemGroupContent'
+import ActiveItemGroupDetail from './ActiveItemGroupDetail'
 import type { ItemGroup } from '~/features/items/model/ItemGroup'
-import type { Item } from '~/features/items/model/item'
 
 export type ActiveItemGroupProps = {
   itemGroup: ItemGroup
+  selectedItems: ActiveItemsRecord
+  setSelectedItems: (newItems: ActiveItemsRecord) => void
 }
 
-const ActiveItemGroup: FC<ActiveItemGroupProps> = ({ itemGroup }) => {
-  const [activeItem, setActiveItem] = useState<Item | null>(null)
+const ActiveItemGroup: FC<ActiveItemGroupProps> = ({
+  itemGroup,
+  selectedItems,
+  setSelectedItems,
+}) => {
+  function onItemsAdded(skuList: Array<string>) {
+    if (skuList.length === 0) {
+      const { [itemGroup.defindex]: _throwaway, ...items } = selectedItems
+      return setSelectedItems({
+        ...items,
+      })
+    }
+    const newItems = Object.values(itemGroup.groups)
+      .flat()
+      .filter((item) => skuList.includes(item.sku))
+    setSelectedItems({
+      ...selectedItems,
+      [itemGroup.defindex]: newItems,
+    })
+  }
   return (
-    <AccordionItem value={itemGroup.name}>
-      <ActiveItemGroupContent {...getContentProps(itemGroup)} />
+    <AccordionItem className="" value={itemGroup.name}>
+      <ToggleGroup
+        onValueChange={onItemsAdded}
+        type="multiple"
+        aria-label="item"
+      >
+        <ActiveItemGroupContent {...getContentProps(itemGroup)} />
+        <ActiveItemGroupDetail itemGroup={itemGroup} />
+      </ToggleGroup>
     </AccordionItem>
   )
 }

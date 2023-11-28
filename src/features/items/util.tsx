@@ -1,6 +1,23 @@
 import classNames from 'classnames'
 import type { Qualities } from '~/features/items/model/item'
 
+export function getNameOfQuality(quality: Qualities) {
+  const qualityNameMap: Record<Qualities, string> = {
+    '0': 'Normal',
+    '1': 'Genuine',
+    '3': 'Vintage',
+    '5': 'Unusual',
+    '6': 'Unique',
+    '9': 'Self-made',
+    '11': 'Strange',
+    '13': 'Haunted',
+    '14': "Collector's",
+    '15': 'Decorated',
+  }
+
+  return qualityNameMap[quality]
+}
+
 export function getClassnameColorByQuality(
   quality: number,
   _decorationQuality: any,

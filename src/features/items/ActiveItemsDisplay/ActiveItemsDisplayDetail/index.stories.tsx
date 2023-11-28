@@ -1,9 +1,8 @@
-import { Collapsible } from '@radix-ui/react-collapsible'
 import type { Meta, StoryObj } from '@storybook/react'
-import ActiveItemsTriggerButton from '.'
+import ActiveItemsDisplayDetail from '.'
 
-const meta: Meta<typeof ActiveItemsTriggerButton> = {
-  component: ActiveItemsTriggerButton,
+const meta: Meta<typeof ActiveItemsDisplayDetail> = {
+  component: ActiveItemsDisplayDetail,
   parameters: {
     backgrounds: {
       default: 'loadouttf',
@@ -15,15 +14,10 @@ const meta: Meta<typeof ActiveItemsTriggerButton> = {
       ],
     },
   },
-  render: (args) => (
-    <Collapsible>
-      <ActiveItemsTriggerButton {...args} />
-    </Collapsible>
-  ),
 }
 
 export default meta
-type Story = StoryObj<typeof ActiveItemsTriggerButton>
+type Story = StoryObj<typeof ActiveItemsDisplayDetail>
 
 /*
  *👇 Render functions are a framework specific feature to allow you control on how the component renders.

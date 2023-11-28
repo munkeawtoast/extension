@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import ActiveItemGroupDetailAccordion from '.'
+import ActiveItemGroupDetailCategory from '.'
 
-const meta: Meta<typeof ActiveItemGroupDetailAccordion> = {
-  component: ActiveItemGroupDetailAccordion,
+const meta: Meta<typeof ActiveItemGroupDetailCategory> = {
+  component: ActiveItemGroupDetailCategory,
 }
 
 export default meta
-type Story = StoryObj<typeof ActiveItemGroupDetailAccordion>
+type Story = StoryObj<typeof ActiveItemGroupDetailCategory>
 
 /*
  *👇 Render functions are a framework specific feature to allow you control on how the component renders.

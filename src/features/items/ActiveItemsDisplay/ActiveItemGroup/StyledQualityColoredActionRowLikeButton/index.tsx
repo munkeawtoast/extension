@@ -1,5 +1,4 @@
 import classNames from 'classnames'
-import type { FC } from 'react'
 import { forwardRef } from 'react'
 import type { Qualities } from '~/features/items/model/item'
 import { getClassnameColorByQuality } from '~/features/items/util'
@@ -13,17 +12,13 @@ type StyleQualityColoredActionRowLikeButtonProps = {
   size?: TwSize
   variant?: 'filled' | 'transparent'
   containerClassName?: string
-  children?: ChildrenPropInjectedProps
+  children?: React.ReactNode
   onClick?: () => void
+  outerClassName?: string
   isOn?: boolean
 }
 
-export type ChildrenPropInjectedProps = FC<{
-  isOn: boolean
-}>
-
-// TODO ส่ง ref แต่ ก็ต้องมี isOnด้วย ทำไงนิ
-const StyleQualityColoredActionRowLikeButton = forwardRef<
+const StyledQualityColoredActionRowLikeButton = forwardRef<
   HTMLButtonElement,
   StyleQualityColoredActionRowLikeButtonProps
 >(
@@ -36,6 +31,7 @@ const StyleQualityColoredActionRowLikeButton = forwardRef<
       size: fontSize,
       children,
       containerClassName,
+      outerClassName: className,
     },
     forwardedRef
   ) => {
@@ -48,7 +44,7 @@ const StyleQualityColoredActionRowLikeButton = forwardRef<
       NonNullable<StyleQualityColoredActionRowLikeButtonProps['variant']>,
       string
     > = {
-      filled: 'bg-[#2A2A2A] border-2 border-[#5F5F5F]',
+      filled: 'bg-component-content border-2 border-component-border',
       transparent: '',
     }
     return (
@@ -56,7 +52,8 @@ const StyleQualityColoredActionRowLikeButton = forwardRef<
         className={classNames(
           'px-2 py-1 rounded items-stretch flex w-full',
           baseStyle,
-          variantStyleMap[variant]
+          variantStyleMap[variant],
+          className
         )}
         ref={forwardedRef}
       >
@@ -66,11 +63,11 @@ const StyleQualityColoredActionRowLikeButton = forwardRef<
         <div
           className={classNames('flex-1 flex items-center', containerClassName)}
         >
-          {children ? children({ isOn: false }) : null}
+          {children}
         </div>
       </button>
     )
   }
 )
 
-export default StyleQualityColoredActionRowLikeButton
+export default StyledQualityColoredActionRowLikeButton

@@ -6,7 +6,7 @@ const meta: Meta<typeof ActiveItemsDisplay> = {
   component: ActiveItemsDisplay,
   render: (props) => (
     <div className="flex flex-col h-screen">
-      <div className="flex-1"></div>
+      <div className="flex-1" />
       <ActiveItemsDisplay {...props} />,
     </div>
   ),

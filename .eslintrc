@@ -1,6 +1,7 @@
 {
   "extends": ["@antfu", "prettier"],
   "rules": {
-    "@typescript-eslint/consistent-type-definitions": "off"
+    "@typescript-eslint/consistent-type-definitions": "off",
+    "import/order": ["error"]
   }
 }

@@ -2,12 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { Accordion, AccordionItem } from '@radix-ui/react-accordion'
 import ActiveItemGroupDetail from '.'
+import { mockItemGroups } from '~/features/items/model/itemGroup.mock'
 
 const meta: Meta<typeof ActiveItemGroupDetail> = {
   component: ActiveItemGroupDetail,
   render: (args) => (
-    <Accordion type="single" defaultValue={args.baseName}>
-      <AccordionItem value={args.baseName}>
+    <Accordion type="single">
+      <AccordionItem value="test">
         <ActiveItemGroupDetail {...args} />
       </AccordionItem>
     </Accordion>
@@ -24,5 +25,7 @@ type Story = StoryObj<typeof ActiveItemGroupDetail>
  */
 
 export const Default: Story = {
-  args: {},
+  args: {
+    itemGroup: mockItemGroups[0],
+  },
 }
