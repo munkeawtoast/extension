@@ -9,7 +9,7 @@ const ActiveItemsDetailTriggerButton: FC<
 > = () => {
   return (
     <CollapsibleTrigger asChild>
-      <button className="group/open-button transition active:scale-105 active:translate-y-px px-3.5 py-2.5 bg-gray-600 rounded-lg shadow-md flex-col justify-start items-end inline-flex">
+      <button className="mb-3 group/open-button transition active:scale-105 active:translate-y-px px-3.5 py-2.5 bg-gray-600 rounded-lg shadow-md flex-col justify-start items-end inline-flex">
         <Icon
           icon="ph:list-bold"
           className="group-active/open-button:scale-105  transition text-white text-3xl"

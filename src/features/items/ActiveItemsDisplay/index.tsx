@@ -19,7 +19,7 @@ const ActiveItemsDisplay: FC<ActiveItemsDisplayProps> = ({ itemGroups }) => {
     setSelectedItems(newItems)
   }
   return (
-    <Collapsible className="flex flex-col items-end">
+    <Collapsible className="mr-3 flex flex-col items-end">
       <CollapsibleContent asChild>
         <div className="mb-3 shadow-lg w-96">
           <div className="bg-card-header py-2 px-3 rounded-t-md text-white text-xl">
