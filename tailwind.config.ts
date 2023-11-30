@@ -3,6 +3,33 @@ export default {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      animation: {
+        slideDownAndFade:
+          'slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+        slideLeftAndFade:
+          'slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+        slideUpAndFade: 'slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+        slideRightAndFade:
+          'slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+      },
+      keyframes: {
+        slideDownAndFade: {
+          from: { opacity: '0', transform: 'translateY(-2px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideLeftAndFade: {
+          from: { opacity: '0', transform: 'translateX(2px)' },
+          to: { opacity: '1', transform: 'translateX(0)' },
+        },
+        slideUpAndFade: {
+          from: { opacity: '0', transform: 'translateY(2px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideRightAndFade: {
+          from: { opacity: '0', transform: 'translateX(-2px)' },
+          to: { opacity: '1', transform: 'translateX(0)' },
+        },
+      },
       fontFamily: {
         sans: ['TF2 Build', 'sans-serif'],
       },
@@ -24,6 +51,13 @@ export default {
           header: '#111',
           body: '#323232',
         },
+        tf2_settings: {
+          body: '#282526',
+          header: '#BB5741',
+          title: '#EAE3CD',
+          label: '#746B5F',
+        },
+
         quality: {
           normal: '#B2B2B2',
           unique: '#FFD700',
