@@ -2,6 +2,7 @@ import { Accordion } from '@radix-ui/react-accordion'
 import type { FC } from 'react'
 import ActiveItemGroup from '../ActiveItemGroup'
 import type { ActiveItemsRecord } from '..'
+import { useGetAllGroupedPricings } from '../../hooks/api/query'
 import type { ItemGroup } from '~/features/items/model/ItemGroup'
 
 export type ActiveItemsDisplayContentProps = {
@@ -15,6 +16,30 @@ const ActiveItemsDisplayContent: FC<ActiveItemsDisplayContentProps> = ({
   selectedItems,
   setSelectedItems,
 }) => {
+  const { status, error } = useGetAllGroupedPricings()
+
+  if (itemGroups.length < 1) {
+    return (
+      <div className="text-center bg-card-body text-tf2_settings-title items-center justify-center flex h-48">
+        Pick items to see them here.
+      </div>
+    )
+  }
+  switch (true) {
+    case status === 'pending':
+      return (
+        <div className="text-center bg-card-body text-tf2_settings-title items-center justify-center flex h-48">
+          Loading...
+        </div>
+      )
+    case status === 'error':
+      return (
+        <div className="text-center bg-card-body text-tf2_settings-title items-center justify-center flex h-48">
+          Error!
+        </div>
+      )
+  }
+
   return (
     <Accordion
       collapsible
