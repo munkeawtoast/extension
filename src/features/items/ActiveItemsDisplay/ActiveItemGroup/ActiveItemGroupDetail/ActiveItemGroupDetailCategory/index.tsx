@@ -1,4 +1,3 @@
-import { type FC } from 'react'
 import {
   Collapsible,
   CollapsibleContent,
@@ -12,10 +11,9 @@ type ActiveItemGroupDetailCategoryProps = {
   children: React.ReactNode
 }
 
-const ActiveItemGroupDetailCategory: FC<ActiveItemGroupDetailCategoryProps> = ({
-  children,
-  title,
-}) => {
+const ActiveItemGroupDetailCategory: React.FC<
+  ActiveItemGroupDetailCategoryProps
+> = ({ children, title }) => {
   return (
     <Collapsible defaultOpen>
       <CollapsibleTrigger className="group/detail w-full">

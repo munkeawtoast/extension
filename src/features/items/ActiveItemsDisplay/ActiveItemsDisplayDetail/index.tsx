@@ -1,4 +1,3 @@
-import type { FC } from 'react'
 import sku from '@tf2autobot/tf2-sku'
 import type { ActiveItemsRecord } from '..'
 import type { Item } from '../../model/item'
@@ -9,7 +8,7 @@ export type ActiveItemsDisplayDetailProps = {
   setSelectedItems?: (newItems: ActiveItemsRecord) => void
 }
 
-const ActiveItemsDisplayDetail: FC<ActiveItemsDisplayDetailProps> = ({
+const ActiveItemsDisplayDetail: React.FC<ActiveItemsDisplayDetailProps> = ({
   selectedItems,
   setSelectedItems,
 }) => {

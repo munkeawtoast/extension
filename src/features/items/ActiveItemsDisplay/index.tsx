@@ -1,5 +1,4 @@
 import { Collapsible, CollapsibleContent } from '@radix-ui/react-collapsible'
-import type { FC } from 'react'
 import { useState } from 'react'
 import type { Item } from '../model/item'
 import ActiveItemsDisplayContent from './ActiveItemsDisplayContent'
@@ -13,7 +12,9 @@ export type ActiveItemsDisplayProps = {
 
 export type ActiveItemsRecord = Record<string, Array<Item>>
 
-const ActiveItemsDisplay: FC<ActiveItemsDisplayProps> = ({ itemGroups }) => {
+const ActiveItemsDisplay: React.FC<ActiveItemsDisplayProps> = ({
+  itemGroups,
+}) => {
   const [selectedItems, setSelectedItems] = useState<ActiveItemsRecord>({})
   function handleSelectedItemsChange(newItems: ActiveItemsRecord) {
     setSelectedItems(newItems)

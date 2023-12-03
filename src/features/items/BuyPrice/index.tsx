@@ -1,4 +1,3 @@
-import type { FC } from 'react'
 import { Icon, type IconProps } from '@iconify/react'
 import classNames from 'classnames'
 import type { Currencies } from '../model/item'
@@ -9,7 +8,7 @@ export type BuyPriceProps = {
   containerClassName?: string
 }
 
-const BuyPrice: FC<BuyPriceProps> = ({
+const BuyPrice: React.FC<BuyPriceProps> = ({
   price,
   className,
   containerClassName,

@@ -1,10 +1,9 @@
 import { Icon } from '@iconify/react'
 import { CollapsibleTrigger } from '@radix-ui/react-collapsible'
-import type { FC } from 'react'
 
 export type ActiveItemsDetailTriggerButtonProps = {}
 
-const ActiveItemsDetailTriggerButton: FC<
+const ActiveItemsDetailTriggerButton: React.FC<
   ActiveItemsDetailTriggerButtonProps
 > = () => {
   return (
