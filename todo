@@ -1,0 +1,1 @@
+BUG: ui scale is storybook env is smaller than in real env becuase rem and em will scale according to font-size declared in html element, placing it in shadow DOM or adjusting font size specifically in the container element only enlarge font size but not ui scale

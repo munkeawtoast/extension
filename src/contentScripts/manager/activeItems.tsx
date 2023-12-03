@@ -3,27 +3,49 @@ import { useEffect, useState } from 'react'
 import { waitForEl } from '../util'
 import ActiveItemsDisplay from '~/features/items/ActiveItemsDisplay'
 import type { ItemGroup } from '~/features/items/model/ItemGroup'
+import { useGetAllGroupedPricings } from '~/features/items/hooks/api/query'
+import { StyleApplyer } from '~/hooks/style'
 
 const ActiveItemsManager = () => {
-  const itemGroups: Array<ItemGroup> = []
-  const [container, setContainer] = useState<Element | null>(null)
+  const { data: _data } = useGetAllGroupedPricings()
 
-  async function setContainerWhenReady() {
-    const outer = await waitForEl(
+  const [container, setContainer] = useState<DocumentFragment | Element | null>(
+    null
+  )
+  const [itemGroups, setItemGroups] = useState<Array<ItemGroup>>([])
+
+  async function createActiveItemsManagerElement() {
+    const outerElement = await waitForEl(
       '.character-manager-character-selector-outer'
     )!
     const container = document.createElement('div')
-    outer.prepend(container)
-    setContainer(container)
+    let isStorybook: boolean
+    try {
+      isStorybook = !!__STORYBOOK_CLIENT_API__
+    } catch {
+      isStorybook = false
+    }
+    outerElement.prepend(container)
+    if (!isStorybook) {
+      const shadowContainer = container.attachShadow({
+        mode: __DEV__ ? 'open' : 'closed',
+      })
+      setContainer(shadowContainer)
+    } else {
+      setContainer(container)
+    }
   }
 
   useEffect(() => {
-    setContainerWhenReady()
+    createActiveItemsManagerElement()
   }, [])
 
   return container
     ? createPortal(
-        <ActiveItemsDisplay itemGroups={itemGroups} />,
+        <>
+          <StyleApplyer />
+          <ActiveItemsDisplay itemGroups={itemGroups} />
+        </>,
         container,
         'active-items'
       )

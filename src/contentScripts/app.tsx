@@ -1,10 +1,12 @@
 import ActiveItemsManager from './manager/activeItems'
+import './style.css'
+import { StyleHrefContextProvider } from '~/hooks/style'
 
 const PricetagApp = () => {
   return (
-    <>
-      <ActiveItemsManager />
-    </>
+      <StyleHrefContextProvider>
+        <ActiveItemsManager />
+      </StyleHrefContextProvider>
   )
 }
 
