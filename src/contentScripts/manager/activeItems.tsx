@@ -4,7 +4,7 @@ import { waitForEl } from '../util'
 import ActiveItemsDisplay from '~/features/items/ActiveItemsDisplay'
 import type { ItemGroup } from '~/features/items/model/ItemGroup'
 import { useGetAllGroupedPricings } from '~/features/items/hooks/api/query'
-import { StyleApplyer } from '~/hooks/style'
+import { StyleApplier } from '~/hooks/style'
 
 const ActiveItemsManager = () => {
   const { data: _data } = useGetAllGroupedPricings()
@@ -18,7 +18,9 @@ const ActiveItemsManager = () => {
     const outerElement = await waitForEl(
       '.character-manager-character-selector-outer'
     )!
-    const container = document.createElement('div')
+    let container: HTMLDivElement | DocumentFragment =
+      document.createElement('div')
+    container.style.fontSize = '16px'
     let isStorybook: boolean
     try {
       isStorybook = !!__STORYBOOK_CLIENT_API__
@@ -30,10 +32,9 @@ const ActiveItemsManager = () => {
       const shadowContainer = container.attachShadow({
         mode: __DEV__ ? 'open' : 'closed',
       })
-      setContainer(shadowContainer)
-    } else {
-      setContainer(container)
+      container = shadowContainer
     }
+    setContainer(container)
   }
 
   useEffect(() => {
@@ -43,7 +44,7 @@ const ActiveItemsManager = () => {
   return container
     ? createPortal(
         <>
-          <StyleApplyer />
+          <StyleApplier />
           <ActiveItemsDisplay itemGroups={itemGroups} />
         </>,
         container,
