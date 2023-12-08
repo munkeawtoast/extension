@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import type { ItemGroup } from './model/ItemGroup'
 import type { Qualities } from '~/features/items/model/item'
 
 export function getNameOfQuality(quality: Qualities) {
@@ -19,7 +20,7 @@ export function getNameOfQuality(quality: Qualities) {
 }
 
 export function getClassnameColorByQuality(
-  quality: number,
+  quality: Qualities,
   _decorationQuality: any,
   options: {
     border?: boolean
@@ -65,10 +66,30 @@ export function getClassnameColorByQuality(
   }
   const { border, background, text } = options
   return classNames(
-    text && (textColorStyleMap[quality as Qualities] ?? 'text-quality-normal'),
-    background &&
-      (bgColorStyleMap[quality as Qualities] ?? 'bg-quality-normal'),
-    border &&
-      (borderColorStyleMap[quality as Qualities] ?? 'border-quality-normal')
+    text && (textColorStyleMap[quality] ?? 'text-quality-normal'),
+    background && (bgColorStyleMap[quality] ?? 'bg-quality-normal'),
+    border && (borderColorStyleMap[quality] ?? 'border-quality-normal')
   )
+}
+
+export function filterGroupsQuality(
+  itemGroups: Array<ItemGroup>,
+  qualities: Array<keyof ItemGroup['groups']>
+): Array<ItemGroup> {
+  return itemGroups.map((itemGroup) => {
+    const { groups, ...rest } = itemGroup
+    return {
+      ...rest,
+      groups: Object.fromEntries(
+        Object.entries(groups).map(([quality, items]) =>
+          qualities.includes(quality as unknown as keyof ItemGroup['groups'])
+            ? [quality, items]
+            : [
+                quality,
+                [] as Array<ItemGroup['groups'][keyof ItemGroup['groups']]>,
+              ]
+        )
+      ),
+    }
+  })
 }

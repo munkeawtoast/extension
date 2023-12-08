@@ -23,7 +23,7 @@ export const StyleHrefContextProvider: React.FC<{
   )
 }
 
-export const StyleApplyer: React.FC = () => {
+export const StyleApplier: React.FC = () => {
   const href = useContext(StyleHrefContext)
   return href ? <link rel="stylesheet" href={href} /> : null
 }

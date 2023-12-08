@@ -18,13 +18,6 @@ const ActiveItemsDisplayContent: FC<ActiveItemsDisplayContentProps> = ({
 }) => {
   const { status, error } = useGetAllGroupedPricings()
 
-  if (itemGroups.length < 1) {
-    return (
-      <div className="text-center bg-card-body text-tf2_settings-title items-center justify-center flex h-48">
-        Pick items to see them here.
-      </div>
-    )
-  }
   switch (true) {
     case status === 'pending':
       return (
@@ -38,6 +31,14 @@ const ActiveItemsDisplayContent: FC<ActiveItemsDisplayContentProps> = ({
           Error!
         </div>
       )
+  }
+
+  if (itemGroups.length < 1) {
+    return (
+      <div className="text-center bg-card-body text-tf2_settings-title items-center justify-center flex h-48">
+        Pick items to see them here.
+      </div>
+    )
   }
 
   return (

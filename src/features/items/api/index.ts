@@ -1,4 +1,5 @@
-export const itemServiceUrl = 'https://pricetagged-tf.munkeawtoast.com'
+export const prodItemServiceUrl = 'https://pricetagged-tf.munkeawtoast.com'
+export const devItemServiceUrl = 'http://localhost:8787'
 
-export * from './dto'
-export * from './schemas'
+export type * from './dto'
+export type * from './schemas'

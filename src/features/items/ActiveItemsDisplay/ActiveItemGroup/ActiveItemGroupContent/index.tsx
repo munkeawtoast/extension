@@ -3,7 +3,7 @@ import { AccordionHeader, AccordionTrigger } from '@radix-ui/react-accordion'
 import sku from '@tf2autobot/tf2-sku'
 import classNames from 'classnames'
 import { forwardRef } from 'react'
-import type { Item } from '~/features/items/model/item'
+import type { Item, Qualities } from '~/features/items/model/item'
 import { getClassnameColorByQuality } from '~/features/items/util'
 
 export type ActiveItemGroupContentProps = {
@@ -28,7 +28,9 @@ const ActiveItemGroupContent = forwardRef<
             'w-20 h-20 border-4 bg-cover bg-center rounded',
 
             getClassnameColorByQuality(
-              item ? sku.fromString(item.sku).quality : 0,
+              item
+                ? (sku.fromString(item.sku).quality as unknown as Qualities)
+                : '0',
               null,
               {
                 background: true,

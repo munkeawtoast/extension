@@ -1,9 +1,8 @@
 import axiosStatic from 'axios'
+import { devItemServiceUrl, prodItemServiceUrl } from '.'
 
 const itemAxios = axiosStatic.create({
-  baseURL: __DEV__
-    ? 'http://localhost:8787'
-    : 'https://pricetagged-tf.munkeawtoast.com/',
+  baseURL: __DEV__ ? devItemServiceUrl : prodItemServiceUrl,
 })
 
 // itemAxios.interceptors.request.use()
