@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { Accordion, AccordionItem } from '@radix-ui/react-accordion'
 import ActiveItemGroupDetail from '.'
-import { mockItemGroups } from '~/features/items/model/itemGroup.mock'
+import { mockItemGroups } from '~/features/items/hooks/apiMock/itemGroup'
 
 const meta: Meta<typeof ActiveItemGroupDetail> = {
   component: ActiveItemGroupDetail,

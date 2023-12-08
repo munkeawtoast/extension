@@ -2,7 +2,7 @@ import { Accordion } from '@radix-ui/react-accordion'
 import type { FC } from 'react'
 import ActiveItemGroup from '../ActiveItemGroup'
 import type { ActiveItemsRecord } from '..'
-import { useGetAllGroupedPricings } from '../../hooks/api/query'
+import { useGetAllGroupedPricings } from '../../hooks/internalApi/query'
 import type { ItemGroup } from '~/features/items/model/ItemGroup'
 
 export type ActiveItemsDisplayContentProps = {

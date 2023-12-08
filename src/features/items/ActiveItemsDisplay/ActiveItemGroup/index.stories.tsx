@@ -1,6 +1,6 @@
 import { Accordion } from '@radix-ui/react-accordion'
 import type { Meta, StoryObj } from '@storybook/react'
-import { mockItemGroups } from '../../model/itemGroup.mock'
+import { mockItemGroups } from '../../hooks/apiMock/itemGroup'
 import ActiveItemGroup from './index'
 
 const meta: Meta<typeof ActiveItemGroup> = {

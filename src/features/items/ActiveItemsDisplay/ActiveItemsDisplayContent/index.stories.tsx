@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import ActiveItemsDisplayContent from '.'
-import { mockItemGroups } from '~/features/items/model/itemGroup.mock'
+import { mockItemGroups } from '~/features/items/hooks/apiMock/itemGroup'
 
 const meta: Meta<typeof ActiveItemsDisplayContent> = {
   component: ActiveItemsDisplayContent,

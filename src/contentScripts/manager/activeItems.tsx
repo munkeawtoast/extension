@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { waitForEl } from '../util'
 import ActiveItemsDisplay from '~/features/items/ActiveItemsDisplay'
 import type { ItemGroup } from '~/features/items/model/ItemGroup'
-import { useGetAllGroupedPricings } from '~/features/items/hooks/api/query'
+import { useGetAllGroupedPricings } from '~/features/items/hooks/internalApi/query'
 import { StyleApplier } from '~/hooks/style'
 
 const ActiveItemsManager = () => {
