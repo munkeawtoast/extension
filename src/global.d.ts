@@ -8,3 +8,5 @@ declare type Prettify<T> = {
 
 // HACK: storybook has global variables as artifacts, this is a variable so that we can know if we are in storybook or not
 declare const __STORYBOOK_CLIENT_API__: {} | undefined
+
+declare type ObjectValues<T> = T[keyof T]
