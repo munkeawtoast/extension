@@ -1,10 +1,9 @@
 import { Form } from '@radix-ui/react-form'
 import classNames from 'classnames'
 import { TooltipProvider } from '@radix-ui/react-tooltip'
-import type { Modes } from '../hooks/settingsStore'
+import { type Modes, useSettingsStore } from '../hooks/settingsStore'
 import SelectSettingRow from './SelectSettingRow'
 import SettingsHeader from './SettingsHeader'
-import useSettingsFacade from '~/stores/persist/useSettingsFacade'
 
 export type SettingsPaneProps = {
   width?: 'screen' | 'default' | 'unset'
@@ -21,7 +20,10 @@ type FormToggleItem<T extends SetterFunction> = {
 }
 
 const SettingsPane: React.FC<SettingsPaneProps> = ({ width = 'default' }) => {
-  const { mode, setMode } = useSettingsFacade(['setMode', 'mode'])
+  const { mode, setMode } = useSettingsStore((state) => ({
+    mode: state.mode,
+    setMode: state.setMode,
+  }))
 
   // TODO: refactor current into this form
   // const forms: Array<FormToggleItem<typeof setMode>> = [
