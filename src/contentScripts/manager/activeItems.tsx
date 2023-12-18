@@ -2,17 +2,12 @@ import { createPortal } from 'react-dom'
 import { useEffect, useState } from 'react'
 import { waitForEl } from '../util'
 import ActiveItemsDisplay from '~/features/items/ActiveItemsDisplay'
-import type { ItemGroup } from '~/features/items/model/ItemGroup'
-import { useGetAllGroupedPricings } from '~/features/items/hooks/internalApi/query'
 import { StyleApplier } from '~/hooks/style'
 
 const ActiveItemsManager = () => {
-  const { data: _data } = useGetAllGroupedPricings()
-
   const [container, setContainer] = useState<DocumentFragment | Element | null>(
     null
   )
-  const [itemGroups, setItemGroups] = useState<Array<ItemGroup>>([])
 
   async function createActiveItemsManagerElement() {
     const outerElement = await waitForEl(
@@ -45,7 +40,7 @@ const ActiveItemsManager = () => {
     ? createPortal(
         <>
           <StyleApplier />
-          <ActiveItemsDisplay itemGroups={itemGroups} />
+          <ActiveItemsDisplay />
         </>,
         container,
         'active-items'

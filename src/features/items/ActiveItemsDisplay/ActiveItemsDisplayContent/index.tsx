@@ -1,39 +1,38 @@
 import { Accordion } from '@radix-ui/react-accordion'
 import type { FC } from 'react'
 import ActiveItemGroup from '../ActiveItemGroup'
-import type { ActiveItemsRecord } from '..'
-import { useGetAllGroupedPricings } from '../../hooks/internalApi/query'
-import type { ItemGroup } from '~/features/items/model/ItemGroup'
+import type { SelectedItemsRecord } from '..'
+import { useGetAllGroupedPricings } from '../../hooks/query'
+import { useActiveItemsStore } from '../../stores/useActiveItemsStore'
 
 export type ActiveItemsDisplayContentProps = {
-  itemGroups: Array<ItemGroup>
-  selectedItems: ActiveItemsRecord
-  setSelectedItems: (newItems: ActiveItemsRecord) => void
+  selectedItems: SelectedItemsRecord
+  setSelectedItems: (newItems: SelectedItemsRecord) => void
 }
 
 const ActiveItemsDisplayContent: FC<ActiveItemsDisplayContentProps> = ({
-  itemGroups,
   selectedItems,
   setSelectedItems,
 }) => {
-  const { status, error } = useGetAllGroupedPricings()
+  const { isError, isPending, data } = useGetAllGroupedPricings()
+  const activeItems = useActiveItemsStore((state) => state.activeItems)
 
-  switch (true) {
-    case status === 'pending':
-      return (
-        <div className="text-center bg-card-body text-tf2_settings-title items-center justify-center flex h-48">
-          Loading...
-        </div>
-      )
-    case status === 'error':
-      return (
-        <div className="text-center bg-card-body text-tf2_settings-title items-center justify-center flex h-48">
-          Error!
-        </div>
-      )
+  if (isPending) {
+    return (
+      <div className="text-center bg-card-body text-tf2_settings-title items-center justify-center flex h-48">
+        Loading...
+      </div>
+    )
+  }
+  if (isError) {
+    return (
+      <div className="text-center bg-card-body text-tf2_settings-title items-center justify-center flex h-48">
+        Error!
+      </div>
+    )
   }
 
-  if (itemGroups.length < 1) {
+  if (activeItems.length === 0) {
     return (
       <div className="text-center bg-card-body text-tf2_settings-title items-center justify-center flex h-48">
         Pick items to see them here.
@@ -45,9 +44,9 @@ const ActiveItemsDisplayContent: FC<ActiveItemsDisplayContentProps> = ({
     <Accordion
       collapsible
       type="single"
-      className="max-h-[32rem] overflow-scroll"
+      className="max-h-[512px] overflow-y-scroll"
     >
-      {itemGroups.map((itemGroup) => (
+      {activeItems.map((itemGroup) => (
         <ActiveItemGroup
           key={itemGroup.defindex}
           selectedItems={selectedItems}

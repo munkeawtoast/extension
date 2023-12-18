@@ -1,7 +1,7 @@
 import { AccordionItem } from '@radix-ui/react-accordion'
 
 import { ToggleGroup } from '@radix-ui/react-toggle-group'
-import type { ActiveItemsRecord } from '..'
+import type { SelectedItemsRecord } from '..'
 import type { ActiveItemGroupContentProps } from './ActiveItemGroupContent'
 import ActiveItemGroupContent from './ActiveItemGroupContent'
 import ActiveItemGroupDetail from './ActiveItemGroupDetail'
@@ -9,8 +9,8 @@ import type { ItemGroup } from '~/features/items/model/ItemGroup'
 
 export type ActiveItemGroupProps = {
   itemGroup: ItemGroup
-  selectedItems: ActiveItemsRecord
-  setSelectedItems: (newItems: ActiveItemsRecord) => void
+  selectedItems: SelectedItemsRecord
+  setSelectedItems: (newItems: SelectedItemsRecord) => void
 }
 
 const ActiveItemGroup: React.FC<ActiveItemGroupProps> = ({

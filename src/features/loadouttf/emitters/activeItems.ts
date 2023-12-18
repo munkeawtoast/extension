@@ -5,17 +5,31 @@ import type { ItemManagerItemElement } from '../elements'
 const ACTIVE_ITEMS_EMITTER_EVENTS = {
   added: 'added',
   removed: 'removed',
+  changed: 'changed',
 } as const
 
-type ActiveItemsEmitterEventsHandlerMap = {
-  added: (newItem: ItemManagerItemElement) => void
-  removed: (newItem: ItemManagerItemElement) => void
+export type ActiveItemEvent = {
+  name: string
+  element: ItemManagerItemElement
+  referenceElement: HTMLDivElement
+}
+export type ActiveItemAddedEvent = ActiveItemEvent
+export type ActiveItemRemovedEvent = ActiveItemEvent
+export type ActiveItemsChangeEvent = {
+  newItems: Array<ActiveItemEvent>
 }
 
-type ActiveItem = {
+type ActiveItemsEmitterEventsHandlerMap = {
+  added: (newItem: ActiveItemAddedEvent) => void
+  removed: (newItem: ActiveItemRemovedEvent) => void
+  changed: (newItems: ActiveItemsChangeEvent) => void
+}
+
+type InternalActiveItem = {
   title: string
   imageUrl: string
   element: ItemManagerItemElement
+  referenceElement: HTMLDivElement
 }
 
 type ActiveItemsEmitterEvents = keyof typeof ACTIVE_ITEMS_EMITTER_EVENTS
@@ -23,6 +37,7 @@ type ActiveItemsEmitterEvents = keyof typeof ACTIVE_ITEMS_EMITTER_EVENTS
 export class ActiveItemsEmitter {
   private eventEmitter: EventEmitter
   private mutationObserver: MutationObserver
+  private currentItems: Array<InternalActiveItem> = []
 
   constructor() {
     this.eventEmitter = new EventEmitter()
@@ -34,48 +49,72 @@ export class ActiveItemsEmitter {
       activeItemsOuterContainerElement.firstChild!.firstChild as HTMLDivElement
 
     this.mutationObserver = new MutationObserver((mutations) => {
-      const currentItems: Array<ActiveItem> = []
       mutations.forEach((mutation) => {
-        const addedNodes = mutation.addedNodes[0] as HTMLDivElement
-        const removedNodes = mutation.removedNodes[0] as HTMLDivElement
+        // FIXME: only looking at the first element what im doing lol fix later
 
         const selectedItemManagers = [
           ...(document.querySelectorAll(
             'item-manager-item.item-manager-item-selected'
-          ) as unknown as Array<HTMLDivElement>),
+          ) as NodeListOf<ItemManagerItemElement>),
         ]
 
-        const orderingReferenceImageUrls = [
-          ...(activeItemsContainerElement.children as unknown as Array<HTMLDivElement>),
+        const orderReferenceBackgroundImages = [
+          ...(activeItemsContainerElement.children as HTMLCollectionOf<HTMLDivElement>),
         ].map((item) => item.style.backgroundImage)
 
-        if (addedNodes) {
-          const newItem = selectedItemManagers.find(
+        if (mutation.addedNodes.length > 0) {
+          const addedReferenceDiv = mutation.addedNodes[0] as HTMLDivElement
+          const newItemManagerElement = selectedItemManagers.find(
             (item) =>
-              !currentItems.find(
+              !this.currentItems.find(
                 (currentItem) => currentItem.title === item.title
               )
           )!
-          currentItems.push({
-            title: newItem.title,
-            imageUrl: (<HTMLDivElement>(
-              newItem.querySelector('.item-manager-item-img')!
-            )).style.backgroundImage,
-            element: newItem,
-          })
-          currentItems.sort(
+          const newItem: InternalActiveItem = {
+            title: newItemManagerElement.title,
+            imageUrl: (
+              newItemManagerElement.querySelector(
+                '.item-manager-item-img'
+              )! as HTMLDivElement
+            ).style.backgroundImage,
+            element: newItemManagerElement,
+            referenceElement: addedReferenceDiv,
+          }
+          this.currentItems.push(newItem)
+          this.currentItems.sort(
             ({ imageUrl }, { imageUrl: imageUrl2 }) =>
-              orderingReferenceImageUrls.indexOf(imageUrl) -
-              orderingReferenceImageUrls.indexOf(imageUrl2)
+              orderReferenceBackgroundImages.indexOf(imageUrl) -
+              orderReferenceBackgroundImages.indexOf(imageUrl2)
           )
-        } else if (removedNodes) {
-          currentItems.splice(
-            currentItems.findIndex(
-              ({ imageUrl }) => removedNodes.style.backgroundImage === imageUrl
-            ),
-            1
-          )
+          this.emit('added', {
+            name: newItem.title,
+            element: newItem.element,
+            referenceElement: addedReferenceDiv,
+          })
         }
+        if (mutation.removedNodes.length > 0) {
+          const removedReferenceDiv = mutation.removedNodes[0] as HTMLDivElement
+          const removedItemIndex = this.currentItems.findIndex(
+            ({ imageUrl }) =>
+              removedReferenceDiv.style.backgroundImage === imageUrl
+          )
+          const removedItem = this.currentItems[removedItemIndex]
+          this.currentItems.splice(removedItemIndex, 1)
+          this.emit('removed', {
+            name: removedItem.title,
+            element: removedItem.element,
+            referenceElement: removedReferenceDiv,
+          })
+        }
+        this.emit('changed', {
+          newItems: this.currentItems.map(
+            ({ title, element, referenceElement }) => ({
+              element,
+              name: title,
+              referenceElement,
+            })
+          ),
+        })
       })
     })
 
@@ -96,5 +135,12 @@ export class ActiveItemsEmitter {
     handler: ActiveItemsEmitterEventsHandlerMap[T]
   ) {
     this.eventEmitter.off(event, handler)
+  }
+
+  private emit<T extends ActiveItemsEmitterEvents>(
+    event: T,
+    ...args: Parameters<ActiveItemsEmitterEventsHandlerMap[T]>
+  ) {
+    this.eventEmitter.emit(event, ...args)
   }
 }

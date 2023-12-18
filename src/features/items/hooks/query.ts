@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { getAllGroupedPricings, getAllPricings } from '../../api/api/items'
+import { getAllGroupedPricings, getAllPricings } from '../api/api/items'
 
 export const useGetAllPricings = () => {
   return useQuery({

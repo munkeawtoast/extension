@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client'
 import { createElement } from 'react'
 import { runtime } from 'webextension-polyfill'
 import PricetagApp from './app'
-import './style.css'
+import '/assets/main.css'
 
 const AppWrapper = () => (
   <>
@@ -34,4 +34,5 @@ const AppWrapper = () => (
 
   const app = createRoot(container)
   app.render(createElement(AppWrapper))
+  // setupWorkers()
 })()
