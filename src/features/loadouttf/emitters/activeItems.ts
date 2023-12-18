@@ -50,8 +50,6 @@ export class ActiveItemsEmitter {
 
     this.mutationObserver = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
-        // FIXME: only looking at the first element what im doing lol fix later
-
         const selectedItemManagers = [
           ...(document.querySelectorAll(
             'item-manager-item.item-manager-item-selected'
@@ -62,8 +60,8 @@ export class ActiveItemsEmitter {
           ...(activeItemsContainerElement.children as HTMLCollectionOf<HTMLDivElement>),
         ].map((item) => item.style.backgroundImage)
 
-        if (mutation.addedNodes.length > 0) {
-          const addedReferenceDiv = mutation.addedNodes[0] as HTMLDivElement
+        mutation.addedNodes.forEach((addedReferenceNode) => {
+          const addedReferenceDiv = addedReferenceNode as HTMLDivElement
           const newItemManagerElement = selectedItemManagers.find(
             (item) =>
               !this.currentItems.find(
@@ -91,9 +89,10 @@ export class ActiveItemsEmitter {
             element: newItem.element,
             referenceElement: addedReferenceDiv,
           })
-        }
-        if (mutation.removedNodes.length > 0) {
-          const removedReferenceDiv = mutation.removedNodes[0] as HTMLDivElement
+        })
+
+        mutation.removedNodes.forEach((removedReferenceNode) => {
+          const removedReferenceDiv = removedReferenceNode as HTMLDivElement
           const removedItemIndex = this.currentItems.findIndex(
             ({ imageUrl }) =>
               removedReferenceDiv.style.backgroundImage === imageUrl
@@ -105,12 +104,13 @@ export class ActiveItemsEmitter {
             element: removedItem.element,
             referenceElement: removedReferenceDiv,
           })
-        }
+        })
+
         this.emit('changed', {
           newItems: this.currentItems.map(
             ({ title, element, referenceElement }) => ({
-              element,
               name: title,
+              element,
               referenceElement,
             })
           ),
