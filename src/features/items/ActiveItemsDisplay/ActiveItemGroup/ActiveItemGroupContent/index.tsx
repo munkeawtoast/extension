@@ -19,7 +19,7 @@ const ActiveItemGroupContent = forwardRef<
 >(({ baseName, image, item }, forwardedRef) => {
   return (
     <AccordionHeader asChild className="">
-      <div className="sticky shadow-lg shadow-black/20 top-0 group/acc-item flex w-full flex-1 items-stretch justify-start font-sans bg-card-body py-2 pl-4 max-w-[400px]">
+      <div className="sticky shadow-lg shadow-black/20 top-0 group/acc-item flex w-full flex-1 items-stretch justify-start font-sans bg-card-body py-2 pl-4 max-w-[400px] z-10">
         <div className="bg-black rounded">
           <div
             style={{

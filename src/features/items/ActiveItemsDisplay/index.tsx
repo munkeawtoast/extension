@@ -17,7 +17,7 @@ const ActiveItemsDisplay: React.FC<ActiveItemsDisplayProps> = () => {
   return (
     <Collapsible className="mr-3 flex flex-col items-end">
       <CollapsibleContent asChild>
-        <div className="mb-3 shadow-lg w-96">
+        <div className="shadow-lg w-96 absolute -translate-y-[calc(100%+12px)]">
           <div className="bg-card-header uppercase py-2 px-3 rounded-t-md text-white text-xl">
             Listing
           </div>

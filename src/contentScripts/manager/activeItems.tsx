@@ -13,16 +13,24 @@ const ActiveItemsManager = () => {
     const outerElement = await waitForEl(
       '.character-manager-character-selector-outer'
     )!
+
     let container: HTMLDivElement | DocumentFragment =
       document.createElement('div')
+    container.style.marginRight = '12px'
+    container.style.position = 'absolute'
+    container.style.bottom = '60px'
+    container.style.right = '0'
+    container.style.zIndex = '20'
     container.style.fontSize = '16px'
+
     let isStorybook: boolean
     try {
       isStorybook = !!__STORYBOOK_CLIENT_API__
     } catch {
       isStorybook = false
     }
-    outerElement.prepend(container)
+    // outerElement.prepend(container)
+    outerElement.insertAdjacentElement('beforebegin', container)
     if (!isStorybook) {
       const shadowContainer = container.attachShadow({
         mode: __DEV__ ? 'open' : 'closed',
