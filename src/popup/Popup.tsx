@@ -1,7 +1,7 @@
 import SettingsPane from '~/features/settings/SettingsPane'
 
-const Options = () => {
+const Popup = () => {
   return <SettingsPane />
 }
 
-export default Options
+export default Popup

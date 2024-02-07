@@ -28,7 +28,7 @@ const ActiveItemGroupDetail = forwardRef<
             .map(([quality, items]) => (
               <Collapsible key={quality} className="group/quality">
                 <ActiveItemGroupDetailQualityCollapsibleHeader
-                  quality={quality as unknown as Qualities}
+                  quality={quality as Qualities}
                   count={items.length}
                 />
                 <CollapsibleContent className="flex gap-1 pt-1 group-data-[state=open]/quality:pb-4 flex-col">

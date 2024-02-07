@@ -1,38 +1,62 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
-
-export type Modes = 'budget' | 'normal'
+import type { FilterKey } from '../filter'
+import type { CustomFilterMerged } from '../SettingsPane/CustomChoice'
+import { extensionStorage } from '~/hooks/storage'
 
 export type SettingsStateV1 = {
-  mode: Modes
+  filter: FilterKey
+  customFilter?: CustomFilterMerged[]
+  customFilterLastId: number
 }
 
 export type SettingsState = SettingsStateV1
-
 export type SettingsAction = {
-  setMode: (mode: Modes) => void
+  setFilter: (filter: FilterKey) => void
+  addCustomFilter: (filter: Omit<CustomFilterMerged, 'id'>) => void
+  removeCustomFilterById: (filterId: CustomFilterMerged['id']) => void
 }
 
 const defaultSettings: SettingsStateV1 = {
-  mode: 'budget',
+  filter: 'only-budget-unique',
+  customFilterLastId: 0,
 }
-
 export const useSettingsStore = create<SettingsState & SettingsAction>()(
   persist(
-    (set, _get) => ({
-      mode: defaultSettings.mode,
-      setMode: (mode) => set({ mode }),
+    (set, get) => ({
+      ...defaultSettings,
+      setFilter: (filter) => set({ filter }),
+      addCustomFilter: (filter) => {
+        const newFilter: CustomFilterMerged = filter as CustomFilterMerged
+        newFilter.id = get().customFilterLastId + 1
+        set({
+          customFilter: [...(get().customFilter ?? []), newFilter],
+          customFilterLastId: newFilter.id,
+        })
+      },
+      removeCustomFilterById: (filterId) => {
+        const customFilters = get().customFilter
+        if (!customFilters) {
+          return
+        }
+        set({
+          customFilter: customFilters.filter(
+            (filter) => filter.id !== filterId
+          ),
+        })
+      },
     }),
     {
       name: 'settings',
       storage: createJSONStorage(() => {
         // TODO: fix unable to import webextension-polyfill due to environment not being extension
+        // HACK: i guess ill just use extensionStorage for now lol
         // if (chrome?.extension || browser?.extension) {
         //   return extensionStorage
         // } else {
         //   return localStorage
         // }
-        return localStorage
+        return extensionStorage
       }),
       version: 1,
       // migrate: (state, version) => {

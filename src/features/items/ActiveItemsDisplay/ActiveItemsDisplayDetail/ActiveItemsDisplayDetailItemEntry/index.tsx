@@ -1,7 +1,10 @@
 import { AccessibleIcon } from '@radix-ui/react-accessible-icon'
 import { Icon } from '@iconify/react'
+import classNames from 'classnames'
+import sku from '@tf2autobot/tf2-sku'
 import BuyPrice from '~/features/items/BuyPrice'
-import type { Item } from '~/features/items/model/item'
+import type { Item, Qualities } from '~/features/items/model/item'
+import { getClassnameColorByQuality } from '~/features/items/util'
 
 export type ActiveItemsDisplayDetailItemEntryProps = {
   item: Item
@@ -11,10 +14,23 @@ export type ActiveItemsDisplayDetailItemEntryProps = {
 const ActiveItemsDisplayDetailItemEntry: React.FC<
   ActiveItemsDisplayDetailItemEntryProps
 > = ({ item, handleItemRemove }) => {
+  const skuObject = sku.fromString(item.sku)
+  const { quality } = skuObject
+
   return (
     <div className="flex px-3">
       <div className="flex-1 flex">
-        <span>{item.name}</span>
+        <span
+          className={classNames(
+            getClassnameColorByQuality(quality as unknown as Qualities, null, {
+              text: true,
+            }),
+            'px-2 py-1 rounded items-stretch flex w-full'
+          )}
+        >
+          {item.name}
+          {item.sku}
+        </span>
         <div>
           <BuyPrice
             containerClassName="flex gap-2"

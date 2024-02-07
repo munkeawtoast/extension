@@ -33,7 +33,7 @@ const ActiveItemGroupDetailEntryChoice = forwardRef<
       <StyledQualityColoredActionRowLikeButton
         quality={tf2Sku.fromString(item.sku).quality as unknown as Qualities}
         outerClassName="text-left"
-        title={item.name}
+        title={`${item.name} ${item.sku}`}
         children={
           <>
             <div className="flex-1" />

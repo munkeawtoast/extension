@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Popup from './Options'
+import Popup from './Popup'
 import '/assets/main.css'
 
 export default function initApp() {

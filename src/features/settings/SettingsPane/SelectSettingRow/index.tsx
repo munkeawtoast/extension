@@ -47,11 +47,13 @@ function SelectSettingRow<T extends Array<SelectOption>>({
     <StyledFormControlSettingRow {...drillProps}>
       <select
         className="w-32 bg-tf2_settings-title"
-        value={value}
+        defaultValue={value}
         onChange={handleValueChange}
       >
         {availableValues.map(({ label, value }) => (
-          <option value={value}>{label}</option>
+          <option key={value} value={value}>
+            {label}
+          </option>
         ))}
       </select>
     </StyledFormControlSettingRow>

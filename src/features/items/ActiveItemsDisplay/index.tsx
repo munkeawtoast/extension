@@ -11,6 +11,7 @@ export type SelectedItemsRecord = Record<string, Array<Item>>
 
 const ActiveItemsDisplay: React.FC<ActiveItemsDisplayProps> = () => {
   const [selectedItems, setSelectedItems] = useState<SelectedItemsRecord>({})
+  const [skus, setSkus] = useState<Array<string>>([])
   function handleSelectedItemsChange(newItems: SelectedItemsRecord) {
     setSelectedItems(newItems)
   }
@@ -24,8 +25,15 @@ const ActiveItemsDisplay: React.FC<ActiveItemsDisplayProps> = () => {
           <ActiveItemsDisplayContent
             selectedItems={selectedItems}
             setSelectedItems={handleSelectedItemsChange}
+            skus={skus}
+            setSkus={setSkus}
           />
-          <ActiveItemsDisplayDetail selectedItems={selectedItems} />
+          <ActiveItemsDisplayDetail
+            selectedItems={selectedItems}
+            setSelectedItems={handleSelectedItemsChange}
+            skus={skus}
+            setSkus={setSkus}
+          />
         </div>
       </CollapsibleContent>
       <ActiveItemsDetailTriggerButton />

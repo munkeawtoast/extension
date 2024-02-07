@@ -30,10 +30,6 @@ export const useActiveItemsStore = create<
       set({
         activeItems,
       })
-      // set({
-      //   rawActiveItems,
-      //   // activeItems: rawActiveItems.map((item) => {}),
-      // })
     },
   }))
 )

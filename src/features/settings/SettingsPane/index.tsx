@@ -1,7 +1,8 @@
 import { Form } from '@radix-ui/react-form'
 import classNames from 'classnames'
 import { TooltipProvider } from '@radix-ui/react-tooltip'
-import { type Modes, useSettingsStore } from '../hooks/settingsStore'
+import { useSettingsStore } from '../hooks/settingsStore'
+import type { FilterKey } from '../filter'
 import SelectSettingRow from './SelectSettingRow'
 import SettingsHeader from './SettingsHeader'
 
@@ -9,20 +10,20 @@ export type SettingsPaneProps = {
   width?: 'screen' | 'default' | 'unset'
 }
 
-type SetterFunction = (value: boolean) => void
+// type SetterFunction = (value: boolean) => void
 
-type FormToggleItem<T extends SetterFunction> = {
-  title: string
-  description?: string
-  tooltip?: React.ReactNode
-  setter: T
-  mapper: (value: boolean) => Parameters<T>['0']
-}
+// type FormToggleItem<T extends SetterFunction> = {
+//   title: string
+//   description?: string
+//   tooltip?: React.ReactNode
+//   setter: T
+//   mapper: (value: boolean) => Parameters<T>['0']
+// }
 
 const SettingsPane: React.FC<SettingsPaneProps> = ({ width = 'default' }) => {
-  const { mode, setMode } = useSettingsStore((state) => ({
-    mode: state.mode,
-    setMode: state.setMode,
+  const { filter, setFilter } = useSettingsStore((state) => ({
+    filter: state.filter,
+    setFilter: state.setFilter,
   }))
 
   // TODO: refactor current into this form
@@ -35,53 +36,56 @@ const SettingsPane: React.FC<SettingsPaneProps> = ({ width = 'default' }) => {
   //   },
   // ]
 
-  function handleModeSelect(a: string) {
-    setMode(a as Modes)
+  function handleFilterSelect(filterName: FilterKey) {
+    setFilter(filterName)
   }
 
   return (
     <TooltipProvider delayDuration={100}>
-      <div className={classNames('', getPaneWidthStyle(width))}>
+      <div className={classNames('font-sans', getPaneWidthStyle(width))}>
         <SettingsHeader
           large
-          prefixIcon={<img src="src/assets/icon.svg" width={20} />}
-          title="PricetaggedTF"
+          prefixElement={<img src="/assets/icon.svg" width={28} />}
+          title="Pricetagged.TF"
         />
         <SettingsHeader title="Settings" />
         <div className="bg-tf2_settings-body h-32">
-          <Form>
+          <Form className="space-y-2">
             <div className="px-4 space-y-2">
               <SelectSettingRow
-                title="test"
-                value={mode}
+                title="filter"
+                value={filter}
                 availableValues={[
-                  { label: 'normal', value: 'normal' } as const,
-                  { label: 'budget', value: 'budget' } as const,
+                  { label: 'No filter', value: 'all' } as const,
+                  { label: 'Budget', value: 'only-budget-unique' } as const,
+                  { label: 'Custom', value: 'custom' } as const,
                 ]}
-                onSelectValue={handleModeSelect}
-              />
-              <SelectSettingRow
-                title="test"
-                value={'test2'}
-                tooltip="test"
-                availableValues={[
-                  {
-                    label: 'test',
-                    value: 'test1',
-                  } as const,
-                  {
-                    label: 'test2',
-                    value: 'test2',
-                  } as const,
-                ]}
-                onSelectValue={handleModeSelect}
+                onSelectValue={handleFilterSelect}
               />
             </div>
-            {/* SwitchSettingRow
-            title="mode"
-            value={mode === 'budget'}
-            onPressedChange={handleModeToggle}
-          / */}
+            {filter === 'custom' && (
+              <div>
+                <SettingsHeader
+                  title="Custom"
+                  rightElement={
+                    <>
+                      <div className="flex-1" />
+
+                      {/* <Button className="text-tf2_settings-header group">
+                        <Icon
+                          className="group-hover:hidden block w-4 h-4"
+                          icon="ph:trash-bold"
+                        />
+                        <Icon
+                          className="group-hover:block hidden w-4 h-4"
+                          icon="ph:trash-fill"
+                        />
+                      </Button> */}
+                    </>
+                  }
+                />
+              </div>
+            )}
           </Form>
         </div>
       </div>

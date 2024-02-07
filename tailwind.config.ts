@@ -108,6 +108,28 @@ export default {
         sans: ['TF2 Build', 'sans-serif'],
       },
       colors: {
+        tf2_colors: {
+          blu: {
+            base: '#61798A',
+            DEFAULT: '#61798A',
+            dark: '#415B75',
+            washed: '#7A8988',
+            dark_gray: '#33302D',
+            dark_gray_pair: '#6B6A65',
+            light: '#E39C58',
+            lighter: '#EDBB91',
+          },
+          red: {
+            base: '#AF4540',
+            DEFAULT: '#AF4540',
+            dark: '#913934',
+            washed: '#873F26',
+            dark_gray: '#422E27',
+            dark_gray_pair: '#654738',
+            light: '#E18755',
+            lighter: '#EAB08D',
+          },
+        },
         card: {
           header: '#41454D',
           body: '#555',
@@ -131,7 +153,6 @@ export default {
           title: '#EAE3CD',
           label: '#746B5F',
         },
-
         quality: {
           normal: '#B2B2B2',
           unique: '#FFD700',

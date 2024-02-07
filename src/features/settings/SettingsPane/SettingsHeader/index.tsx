@@ -2,14 +2,16 @@ import classNames from 'classnames'
 
 export type SettingsHeaderProps = {
   title: string
-  prefixIcon?: React.ReactNode
+  prefixElement?: React.ReactNode
+  rightElement?: React.ReactNode
   large?: boolean
 }
 
 const SettingsHeader: React.FC<SettingsHeaderProps> = ({
   large,
   title,
-  prefixIcon,
+  prefixElement,
+  rightElement,
 }) => {
   return (
     <div
@@ -18,8 +20,13 @@ const SettingsHeader: React.FC<SettingsHeaderProps> = ({
         !large ? 'py-1 items-start' : 'items-center'
       )}
     >
-      <div className="flex items-center">
-        {prefixIcon && <div className="pr-4">{prefixIcon}</div>}
+      <div
+        className={classNames(
+          'flex items-center w-full',
+          large ? 'justify-center' : 'justify-between'
+        )}
+      >
+        {prefixElement && <div className="pr-4">{prefixElement}</div>}
         <h1
           className={classNames(
             'w-fit',
@@ -30,10 +37,11 @@ const SettingsHeader: React.FC<SettingsHeaderProps> = ({
         >
           {title}
         </h1>
+        {rightElement ?? <div>{rightElement}</div>}
       </div>
 
       {!large ? (
-        <div className="border-b pb-1  h-2 w-full border-tf2_settings-title" />
+        <div className="border-b pb-1 h-2 w-full border-tf2_settings-title" />
       ) : null}
     </div>
   )

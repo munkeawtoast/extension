@@ -22,7 +22,7 @@ const ActiveItemGroupDetailCategory: React.FC<
           variant="transparent"
           size="xl"
           title={title}
-          containerClassName="justify-between"
+          // containerClassName="justify-between"
           children={
             <Icon
               icon="ph:caret-down"
@@ -30,7 +30,7 @@ const ActiveItemGroupDetailCategory: React.FC<
             />
           }
         />
-        <div className="h-2" />
+        {/* <div className="h-2" /> */}
       </CollapsibleTrigger>
       <CollapsibleContent>{children}</CollapsibleContent>
     </Collapsible>

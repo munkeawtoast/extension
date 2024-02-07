@@ -11,14 +11,18 @@ export type ActiveItemGroupProps = {
   itemGroup: ItemGroup
   selectedItems: SelectedItemsRecord
   setSelectedItems: (newItems: SelectedItemsRecord) => void
+  skus: Array<string>
+  setSkus: (newSkus: Array<string>) => void
 }
 
 const ActiveItemGroup: React.FC<ActiveItemGroupProps> = ({
   itemGroup,
   selectedItems,
   setSelectedItems,
+  skus,
+  setSkus,
 }) => {
-  function onItemsAdded(skuList: Array<string>) {
+  function onItemsChange(skuList: Array<string>) {
     if (skuList.length === 0) {
       const { [itemGroup.defindex]: _throwaway, ...items } = selectedItems
       return setSelectedItems({
@@ -36,7 +40,8 @@ const ActiveItemGroup: React.FC<ActiveItemGroupProps> = ({
   return (
     <AccordionItem value={itemGroup.name}>
       <ToggleGroup
-        onValueChange={onItemsAdded}
+        onValueChange={onItemsChange}
+        value={skus}
         type="multiple"
         aria-label="item"
       >

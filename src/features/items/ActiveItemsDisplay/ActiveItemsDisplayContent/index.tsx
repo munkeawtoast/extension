@@ -8,11 +8,15 @@ import { useActiveItemsStore } from '../../stores/useActiveItemsStore'
 export type ActiveItemsDisplayContentProps = {
   selectedItems: SelectedItemsRecord
   setSelectedItems: (newItems: SelectedItemsRecord) => void
+  skus: Array<string>
+  setSkus: (newSkus: Array<string>) => void
 }
 
 const ActiveItemsDisplayContent: FC<ActiveItemsDisplayContentProps> = ({
   selectedItems,
   setSelectedItems,
+  skus,
+  setSkus,
 }) => {
   const { isError, isPending, data } = useGetAllGroupedPricings()
   const activeItems = useActiveItemsStore((state) => state.activeItems)
@@ -44,7 +48,7 @@ const ActiveItemsDisplayContent: FC<ActiveItemsDisplayContentProps> = ({
     <Accordion
       collapsible
       type="single"
-      className="max-h-[512px] overflow-y-scroll"
+      className="max-h-[512px] overflow-y-auto"
     >
       {activeItems.map((itemGroup) => (
         <ActiveItemGroup
